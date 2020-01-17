@@ -8,3 +8,11 @@
 #hscontainer {
     margin-top: 20%;
 }
+
+.lists {
+    display: block;
+}
+
+#buttons {
+    text-align: center;
+}

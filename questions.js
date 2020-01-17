@@ -35,6 +35,7 @@ var question = document.querySelector("#question");
 var choices = document.querySelector("#choices");
 var buttons = document.querySelector("#buttons");
 
+
 //add event listeners for buttons
 
 
@@ -47,9 +48,34 @@ startBtn.addEventListener("click", function() {
 function firstQuestion () {
   question.firstChild.textContent = (questions[0].title);
   choices.remove();
-  startBtn.replaceWith(questions[0].choices[0]);
+  startBtn.remove();
+  buttons.appendChild(choiceOne);
+  buttons.appendChild(choiceTwo);
+  buttons.appendChild(choiceThree);
+  buttons.appendChild(choiceFour);
+  // buttons.appendChild(choiceOne, choiceTwo, choiceThree, choiceFour);
 
 
 }
 
-// question.firstChild.textContent = 
+// ("1. " + questions[0].choices[0]);
+
+var choiceOne = document.createElement("button");
+choiceOne.textContent = ("1. " + questions[0].choices[0]);
+
+// var choiceTwo = document.body.buttons.createElement("button");
+var choiceTwo = document.createElement("button");
+choiceTwo.textContent = ("2. " + questions[1].choices[1]);
+
+// var choiceThree = document.body.buttons.createElement("button");
+var choiceThree = document.createElement("button");
+choiceThree.textContent = ("3. " + questions[2].choices[2]);
+// var choiceFour = document.body.buttons.createElement("button");
+var choiceFour = document.createElement("button");
+choiceFour.textContent = ("4. " + questions[3].choices[3]);
+// style buttons
+
+choiceOne.setAttribute("class", "lists");
+choiceTwo.setAttribute("class", "lists");
+choiceThree.setAttribute("class", "lists");
+choiceFour.setAttribute("class", "lists");
