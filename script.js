@@ -7,7 +7,7 @@ var divTwo = document.querySelector("div2");
 var divThree = document.querySelector("div3");
 
 // listen for button activity on these elements to prompt next event//when start quiz is hit, start the timer
-console.log(questions);
+
 // startBtn.addEventListener ("click", function () {
 //     console.log(questions[0]);
 // })

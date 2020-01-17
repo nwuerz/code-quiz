@@ -26,4 +26,30 @@ var questions = [
     },
 
   ];
-  
+
+//grab elements that we are working with and store to a div
+
+var clearBtn = document.querySelector("#clearBtn");
+var startBtn = document.querySelector("#startBtn");
+var question = document.querySelector("#question");
+var choices = document.querySelector("#choices");
+var buttons = document.querySelector("#buttons");
+
+//add event listeners for buttons
+
+
+startBtn.addEventListener("click", function() {
+  firstQuestion();
+});
+
+//create functions that allow us to pull the set of question.choices.answers that we need based on above click..
+
+function firstQuestion () {
+  question.firstChild.textContent = (questions[0].title);
+  choices.remove();
+  startBtn.replaceWith(questions[0].choices[0]);
+
+
+}
+
+// question.firstChild.textContent = 
