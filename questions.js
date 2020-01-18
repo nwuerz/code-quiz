@@ -35,47 +35,99 @@ var question = document.querySelector("#question");
 var choices = document.querySelector("#choices");
 var buttons = document.querySelector("#buttons");
 
+//first set of button options
 
-//add event listeners for buttons
+var choiceOne0 = document.createElement("button");
+choiceOne0.textContent = ("1. " + questions[0].choices[0]);
+choiceOne0.setAttribute("class", "lists");
 
+var choiceTwo0 = document.createElement("button");
+choiceTwo0.textContent = ("2. " + questions[0].choices[1]);
+choiceTwo0.setAttribute("class", "lists");
+
+var choiceThree0 = document.createElement("button");
+choiceThree0.textContent = ("3. " + questions[0].choices[2]);
+choiceThree0.setAttribute("class", "lists");
+
+var choiceFour0 = document.createElement("button");
+choiceFour0.textContent = ("4. " + questions[0].choices[3]);
+choiceFour0.setAttribute("class", "lists");
+console.log(choiceOne0, choiceTwo0, choiceThree0, choiceFour0);
+
+//second set of button options
+
+var choiceOne1 = document.createElement("button");
+choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+choiceOne0.setAttribute("class", "lists");
+
+var choiceTwo1 = document.createElement("button");
+choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+choiceOne0.setAttribute("class", "lists");
+
+var choiceThree1 = document.createElement("button");
+choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+choiceOne0.setAttribute("class", "lists");
+
+var choiceFour1 = document.createElement("button");
+choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+choiceOne0.setAttribute("class", "lists");
+
+//event listener to START code
 
 startBtn.addEventListener("click", function() {
-  firstQuestion();
+  init();
 });
 
-//create functions that allow us to pull the set of question.choices.answers that we need based on above click..
+//create functions that initiate first set of questions after start button is clicked...
 
-function firstQuestion () {
+function init() {
   question.firstChild.textContent = (questions[0].title);
-  choices.remove();
+  div2.remove();
   startBtn.remove();
-  buttons.appendChild(choiceOne);
-  buttons.appendChild(choiceTwo);
-  buttons.appendChild(choiceThree);
-  buttons.appendChild(choiceFour);
-  // buttons.appendChild(choiceOne, choiceTwo, choiceThree, choiceFour);
-
-
+  buttons.appendChild(choiceOne0);
+  buttons.appendChild(choiceTwo0);
+  buttons.appendChild(choiceThree0);
+  buttons.appendChild(choiceFour0);
 }
 
-// ("1. " + questions[0].choices[0]);
 
-var choiceOne = document.createElement("button");
-choiceOne.textContent = ("1. " + questions[0].choices[0]);
+function init2() {
 
-// var choiceTwo = document.body.buttons.createElement("button");
-var choiceTwo = document.createElement("button");
-choiceTwo.textContent = ("2. " + questions[1].choices[1]);
+if (choiceOne0.clicked === true || choiceTwo0.clicked === true || choiceFour0.clicked === true) {
+  console.log("this is a test");
+  //alert wrong answer for 1 second
+  //subtract 10 seconds from the timer
+  //replace html with next set of questions (function)
+  replaceQuestions();
+  console.log("this is a test");
+}
 
-// var choiceThree = document.body.buttons.createElement("button");
-var choiceThree = document.createElement("button");
-choiceThree.textContent = ("3. " + questions[2].choices[2]);
-// var choiceFour = document.body.buttons.createElement("button");
-var choiceFour = document.createElement("button");
-choiceFour.textContent = ("4. " + questions[3].choices[3]);
-// style buttons
+else if (choiceThree0.clicked === true){
+  //alert correct answer 1 second
+  //replace html with next set of questions (function)
+  replaceQuestions();
+}
+}
 
-choiceOne.setAttribute("class", "lists");
-choiceTwo.setAttribute("class", "lists");
-choiceThree.setAttribute("class", "lists");
-choiceFour.setAttribute("class", "lists");
+//function to replace questions with new ones 
+
+function replaceQuestions () {
+  choiceOne0.remove();
+  choiceTwo0.remove();
+  choiceThree0.remove();
+  choiceFour0.remove();
+  buttons.appendChild(choiceOne1);
+  buttons.appendChild(choiceTwo1);
+  buttons.appendChild(choiceThree1);
+  buttons.appendChild(choiceFour1);
+}
+
+  // question.firstChild.textContent = (questions[1].title);
+  // choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+  // choiceOne0.setAttribute("id", "secondBtns");
+  // choiceTwo0.textContent = ("2. " + questions[1].choices[1]);
+  // choiceTwo0.setAttribute("id", "secondBtns");
+  // choiceThree0.textContent = ("3. " + questions[1].choices[2]);
+  // choiceThree0.setAttribute("id", "secondBtns");
+  // choiceFour0.textContent = ("4. " + questions[1].choices[3]);
+  // choiceFour0.setAttribute("id", "secondBtns");
