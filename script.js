@@ -6,6 +6,7 @@
   var choices = findEl("#choices");
   var buttons = findEl("#buttons");
   var timeEl = findEl("#timer");
+  var highScores = findEl("highScores");
   
   var questionIndex = 0;
   
@@ -70,7 +71,7 @@
     return document.querySelectorAll(selector);
   }
 
-  // function used to assign button handler to the newly generated set of buttons and prompt end of quiz
+  // alert user of outcome for each question/answer until questions are completed
   function assignButtonHandlers() {
       var buttonsArr = findAllEl('.lists');
       buttonsArr.forEach(function(buttonEl) {
@@ -81,10 +82,8 @@
             }
             else {
                 alert("wrong answer :(");
+                secondsLeft = (secondsLeft - 10);
             }
-
-            //compare below var with questions[questionsIndex].answer
-            //Handle incrementing right/qwrong var(if wrong, subtract 5 seconds )
 
             console.log(event.target.getAttribute('data-choice'));
             questionIndex++;
@@ -94,14 +93,13 @@
             else {
                 console.log('game over do stuff')
                 allDone();
-                clearInterval(timerInterval);
             }
       });
       });
       
   }
 
-// create All done! page
+// create All done! page and retrieve initials from user
 
 function allDone() {
     var buttonContainer = findEl('#buttons');
@@ -125,17 +123,24 @@ function allDone() {
         }
         storeScores();
         window.location.href = 'high-score.html';
+        displayScores();
         
     });
 }
 
-function HighScores() {
-    var scoreContainer = findEl('#highScores');
-    var highScore = document.createElement("h5");
-    highScore.textContent = "this is a test";
-    scoreContainer.appendChild(highScore);
-}
+//store high score to local storage
 
 function storeScores() {
     localStorage.setItem("highscore", JSON.stringify(userInitials + " " +secondsLeft + " seconds"));
+}
+
+
+//retreive score from storage and display on the "high score page"
+
+function displayScores() {
+    var highscore = JSON.parse(localStorage.getItem("highscore"));
+    var li = document.createElement("li");
+    li.textContent = highscore;
+    highScores.appendChild(highscore);
+
 }
