@@ -27,6 +27,22 @@ var questions = [
 
   ];
 
+  // set timer
+var secondsLeft = 75;
+
+function setTime() {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = "Time: " + secondsLeft;
+
+    if(secondsLeft === 0) {
+      clearInterval(timerInterval);
+    }
+
+  }, 1000);
+}
+
+
 //grab elements that we are working with and store to a div
 
 var clearBtn = document.querySelector("#clearBtn");
@@ -34,6 +50,7 @@ var startBtn = document.querySelector("#startBtn");
 var question = document.querySelector("#question");
 var choices = document.querySelector("#choices");
 var buttons = document.querySelector("#buttons");
+var timeEl = document.querySelector("#timer");
 
 //first set of button options
 
@@ -56,28 +73,32 @@ console.log(choiceOne0, choiceTwo0, choiceThree0, choiceFour0);
 
 //second set of button options
 
-var choiceOne1 = document.createElement("button");
-choiceOne0.textContent = ("1. " + questions[1].choices[0]);
-choiceOne0.setAttribute("class", "lists");
+// var choiceOne1 = document.createElement("button");
+// choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+// choiceOne0.setAttribute("class", "lists");
 
-var choiceTwo1 = document.createElement("button");
-choiceOne0.textContent = ("1. " + questions[1].choices[0]);
-choiceOne0.setAttribute("class", "lists");
+// var choiceTwo1 = document.createElement("button");
+// choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+// choiceOne0.setAttribute("class", "lists");
 
-var choiceThree1 = document.createElement("button");
-choiceOne0.textContent = ("1. " + questions[1].choices[0]);
-choiceOne0.setAttribute("class", "lists");
+// var choiceThree1 = document.createElement("button");
+// choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+// choiceOne0.setAttribute("class", "lists");
 
-var choiceFour1 = document.createElement("button");
-choiceOne0.textContent = ("1. " + questions[1].choices[0]);
-choiceOne0.setAttribute("class", "lists");
+// var choiceFour1 = document.createElement("button");
+// choiceOne0.textContent = ("1. " + questions[1].choices[0]);
+// choiceOne0.setAttribute("class", "lists");
 
 //event listener to START code
 
 startBtn.addEventListener("click", function() {
   init();
+  setTime();
 });
 
+buttons.addEventListener("click", function() {
+  init2();
+});
 //create functions that initiate first set of questions after start button is clicked...
 
 function init() {
@@ -94,12 +115,12 @@ function init() {
 function init2() {
 
 if (choiceOne0.clicked === true || choiceTwo0.clicked === true || choiceFour0.clicked === true) {
-  console.log("this is a test");
+  console.log("test");
   //alert wrong answer for 1 second
   //subtract 10 seconds from the timer
   //replace html with next set of questions (function)
   replaceQuestions();
-  console.log("this is a test");
+  console.log("test");
 }
 
 else if (choiceThree0.clicked === true){
@@ -131,3 +152,9 @@ function replaceQuestions () {
   // choiceThree0.setAttribute("id", "secondBtns");
   // choiceFour0.textContent = ("4. " + questions[1].choices[3]);
   // choiceFour0.setAttribute("id", "secondBtns");
+
+  // create a for loop that scans the array and generates buttons 
+  for (let i = 0; i < questions.length; i++) {
+    var btnOption = questions[i];
+    
+  }
