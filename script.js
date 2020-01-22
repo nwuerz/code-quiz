@@ -77,7 +77,8 @@
       buttonsArr.forEach(function(buttonEl) {
         buttonEl.addEventListener('click', function(event) {
             //compare below var with questions[questionsIndex].answer
-            //Handle incrementing right/qwrong var
+            //Handle incrementing right/qwrong var(if wrong, subtract 5 seconds )
+
             console.log(event.target.getAttribute('data-choice'));
             questionIndex++;
             if(questionIndex < questions.length) {
@@ -86,6 +87,7 @@
             else {
                 console.log('game over do stuff')
                 allDone();
+                HighScores();
             }
       });
       });
@@ -109,7 +111,24 @@ function allDone() {
     buttonContainer.appendChild(intialsPrompt);
     buttonContainer.appendChild(initialsInput);
     buttonContainer.appendChild(initialsSubmit);
+    initialsSubmit.addEventListener('click', function () {
+        userInitials = initialsInput.value.trim();
+        if (userInitials === "") {
+            return;
+        }
+        storeScores();
+        window.location.href = 'high-score.html';
+        
+    });
+}
 
-    
+function HighScores() {
+    var scoreContainer = findEl('#highScores');
+    var highScore = document.createElement("h5");
+    highScore.textContent = "this is a test";
+    scoreContainer.appendChild(highScore);
+}
 
+function storeScores() {
+    localStorage.setItem("highscore", JSON.stringify(userInitials));
 }
