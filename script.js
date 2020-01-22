@@ -32,7 +32,7 @@
         secondsLeft--;
         timeEl.textContent = "Time: " + secondsLeft;
     
-        if(secondsLeft === 0) {
+        if(secondsLeft === 0 || (questionIndex >= questions.length)) {
           clearInterval(timerInterval);
         }
     
@@ -73,9 +73,16 @@
   // function used to assign button handler to the newly generated set of buttons and prompt end of quiz
   function assignButtonHandlers() {
       var buttonsArr = findAllEl('.lists');
-      var questionsArr = findAllEl()
       buttonsArr.forEach(function(buttonEl) {
         buttonEl.addEventListener('click', function(event) {
+            var userSelection = event.target.getAttribute('data-choice');
+            if (userSelection === questions[questionIndex].answer) {
+                alert("correct!")
+            }
+            else {
+                alert("wrong answer :(");
+            }
+
             //compare below var with questions[questionsIndex].answer
             //Handle incrementing right/qwrong var(if wrong, subtract 5 seconds )
 
@@ -87,7 +94,7 @@
             else {
                 console.log('game over do stuff')
                 allDone();
-                HighScores();
+                clearInterval(timerInterval);
             }
       });
       });
@@ -130,5 +137,5 @@ function HighScores() {
 }
 
 function storeScores() {
-    localStorage.setItem("highscore", JSON.stringify(userInitials));
+    localStorage.setItem("highscore", JSON.stringify(userInitials + " " +secondsLeft + " seconds"));
 }
