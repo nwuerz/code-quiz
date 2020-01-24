@@ -123,24 +123,17 @@ function allDone() {
         }
         storeScores();
         window.location.href = 'high-score.html';
-        displayScores();
-        
     });
 }
 
 //store high score to local storage
 
 function storeScores() {
-    localStorage.setItem("highscore", JSON.stringify(userInitials + " " +secondsLeft + " seconds"));
+    var highScore = {
+      userInitials,
+      secondsLeft
+    }
+
+    localStorage.setItem("highscore", JSON.stringify(highScore));
 }
 
-
-//retreive score from storage and display on the "high score page"
-
-function displayScores() {
-    var highscore = JSON.parse(localStorage.getItem("highscore"));
-    var li = document.createElement("li");
-    li.textContent = highscore;
-    highScores.appendChild(highscore);
-
-}
