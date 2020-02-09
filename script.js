@@ -129,11 +129,45 @@ function allDone() {
 //store high score to local storage
 
 function storeScores() {
+  var currentHighScores = JSON.parse(localStorage.getItem("highscores")) || [];
     var highScore = {
       userInitials,
       secondsLeft
     }
 
-    localStorage.setItem("highscore", JSON.stringify(highScore));
+    //First off is score even good enough to be inhgi scores, 
+    //Of so where does it belong
+    //Then reset to localstorage
+    if(currentHighScores.length < 2) {
+      //Add a new person and sort
+      currentHighScores.push(highScore)
+      currentHighScores.sort(function(a,b) {
+        return b.secondsLeft - a.secondsLeft;
+      })
+    }
+
+    else {
+      //we need to check and see if it qualifies
+      var possibleReplacements = currentHighScores.filter(function(userObj) {
+        return userObj.secondsLeft < highScore.secondsLeft;
+      });
+      var userToDrop = possibleReplacements.reduce(function(userToDrop, userObj){
+        if(userObj.secondsLeft - highScore.secondsLeft  >  userToDrop.secondsLeft - highScore.secondsLeft) {
+          userToDrop = userObj;
+        }
+
+        return userToDrop;
+      }, {secondsLeft: Infinity});
+
+      var userToDropIdx = currentHighScores.findIndex(function(userObj) {
+        return userObj === userToDrop;
+      });
+      if(userToDropIdx !== -1) {
+      currentHighScores.splice(userToDropIdx, 1, highScore);
+      }
+      return;
+    }
+
+    localStorage.setItem("highscores", JSON.stringify(currentHighScores));
 }
 
