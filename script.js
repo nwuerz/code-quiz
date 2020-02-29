@@ -135,38 +135,38 @@ function storeScores() {
       secondsLeft
     }
 
-    //First off is score even good enough to be inhgi scores, 
-    //Of so where does it belong
-    //Then reset to localstorage
-    if(currentHighScores.length < 2) {
-      //Add a new person and sort
-      currentHighScores.push(highScore)
-      currentHighScores.sort(function(a,b) {
-        return b.secondsLeft - a.secondsLeft;
-      })
+
+
+    //If the array is empty just add it
+
+    //If it is not empty start from first item which should have highest `score`
+    if (currentHighScores.length === 0 ) {
+      currentHighScores.push(highScore);
+      return localStorage.setItem("highscores", JSON.stringify(currentHighScores));
     }
 
-    else {
-      //we need to check and see if it qualifies
-      var possibleReplacements = currentHighScores.filter(function(userObj) {
-        return userObj.secondsLeft < highScore.secondsLeft;
-      });
-      var userToDrop = possibleReplacements.reduce(function(userToDrop, userObj){
-        if(userObj.secondsLeft - highScore.secondsLeft  >  userToDrop.secondsLeft - highScore.secondsLeft) {
-          userToDrop = userObj;
-        }
-
-        return userToDrop;
-      }, {secondsLeft: Infinity});
-
-      var userToDropIdx = currentHighScores.findIndex(function(userObj) {
-        return userObj === userToDrop;
-      });
-      if(userToDropIdx !== -1) {
-      currentHighScores.splice(userToDropIdx, 1, highScore);
+    let inserted = false;
+    //Keep copmaring the current value to the value you are iterating at and see if our value is ever higher than one in high scores
+    currentHighScores.forEach( ({userInitials, secondsLeft}, index)=> {
+      //If so use splice to modfy the array
+      if (secondsLeft <= highScore.secondsLeft) {
+        currentHighScores.splice(index, 0, highScore);
+        inserted = true;
       }
-      return;
+      
+    });
+
+    if(!inserted && currentHighScores.length < 5) {
+      currentHighScores.push(highScore);
     }
+
+    if (currentHighScores.length > 5) {
+      currentHighScores = currentHighScores.slice(0, 5);
+    }
+    console.log(currentHighScores);
+    //Then check if our array is longer than cache length we shojld non mutattive slice which 
+    //returns a copy and we can exclude the last item essentially dropping it
+    //Finally tha tvalue will be se below to local storage
 
     localStorage.setItem("highscores", JSON.stringify(currentHighScores));
 }
